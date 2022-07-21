@@ -1,8 +1,17 @@
-<svg class="background">
+<svg>
+<rect id="background">
+  <svg class="x">
+    <text id="name" />
+    <image id="settings" href="img/settings.png" />
+  </svg>
   <svg class="container">
-    <image id="egg" href="egg.png" />
-    <image id="elma" href="elma.jpg" />
+    <image id="egg" href="img/egg.png" />
+    <image id="elma-baby" href="img/baby.png" />
+    <image id="elma-young" href="img/young.png" />
+    <image id="elma-adult" href="img/adult.png" />
   </svg>
   <text id="level" />
   <text id="myLabel" />
+</rect>
 </svg>
+
