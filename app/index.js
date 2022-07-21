@@ -23,43 +23,38 @@ clock.ontick = (evt) => {
     // 24h format
     hours = util.zeroPad(hours);
   }
+  
   let mins = util.zeroPad(thisdate.getMinutes());
   myLabel.text = `${hours}:${mins}`;
   
   // Update Level
-  //let steps = (userActivity.today.adjusted);
-  var steps = (today.adjusted.steps);
   
+  var steps = (today.adjusted.steps);
   let levelNumber = 0;
   
   if (steps >= 5000){
-    levelNumber ++;
+    levelNumber++;
   }
    if (steps >= 10000){
-    levelNumber ++;
+    levelNumber++;
   }
   if (steps >= 15000){
-    levelNumber ++;
+    levelNumber++;
   }
   if (steps >= 20000){
-    levelNumber ++;
+    levelNumber++;
   }
   if (steps >= 25000){
-    levelNumber ++;
+    levelNumber++;
   }
   if (steps >= 30000){
-    levelNumber ++;
+    levelNumber++;
   }
   if (steps >= 35000){
-    levelNumber ++;
+    levelNumber++;
   }
   
-  if (levelNumber == 2){
-     var imageEgg = document.getElementById("egg");
-     imageEgg.style.display = 'inline';
-     var imageElma = document.getElementById("elma");
-     imageElma.style.display = 'none';
-      }
+  // Change image when certain levels are reached
   
   if (levelNumber == 5){
      var imageEgg = document.getElementById("egg");
@@ -68,9 +63,18 @@ clock.ontick = (evt) => {
      imageElma.style.display = 'inline';
       }
   
+  //if (levelNumber == 5){
+  //   var imageEgg = document.getElementById("egg");
+  //   imageEgg.style.display = 'none';
+  //   var imageElma = document.getElementById("elma");
+  //   imageElma.style.display = 'inline';
+   //   }
+  
 
-  //level.text = `${steps}` + " steps";
   level.text = "Level " + `${levelNumber}` + "   (" + `${steps}` + " steps" + ")";
+  
+  // Shows steps and level in console
+  
   console.log(today.adjusted.steps)
   console.log(levelNumber)
 }
