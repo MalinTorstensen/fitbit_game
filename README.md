@@ -1,7 +1,7 @@
 # fitbit_game
 IMPORTANT: Use your own copyright-free images.
-Odder image is from tigatelu at Vecteezy.com (https://www.vecteezy.com/members/tigatelu)
-Egg is from Ina Mella at flaticon.com (https://www.flaticon.com/authors/ina-mella)
+These must be added in the resources/img directory.
+Make sure the names match in resources index.view and resources/img directory.
 
 IMPORTANT:
 This is not a finished game yet, watch this repository to see how it progresses or make your own version.
