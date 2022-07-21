@@ -15,3 +15,5 @@ This is not a finished game yet, watch this repository to see how it progresses 
 >> Possible to get 2-3 levels for a normal activity player if 10.000 steps a day is the goal.
 
 Use https://dev.fitbit.com/getting-started/ to set the fitbit studio and fitbit simulator up.
+
+(There is no app icon present in this project. To set an app icon, add a 80x80 PNG file named resources/icon.png to your project.)
