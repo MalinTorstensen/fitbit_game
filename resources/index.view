@@ -1,0 +1,8 @@
+<svg class="background">
+  <svg class="container">
+    <image id="egg" href="egg.png" />
+    <image id="elma" href="elma.jpg" />
+  </svg>
+  <text id="level" />
+  <text id="myLabel" />
+</svg>
