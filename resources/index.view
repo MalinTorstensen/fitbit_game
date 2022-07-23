@@ -1,17 +1,36 @@
 <svg>
+  <rect id="dead">
+    <text id="deadtext">Your pet died.</text>
+    <rect x="70" y="65%" width="60%" height="59" fill="#800020"/>
+  <rect id ="clickrevive" x="73" y ="66%" width="58%" height="50" fill="white" pointer-events="visible"/>
+    <text id="revive" pointer-events="visible">Revive</text>
+  </rect>
 <rect id="background">
   <svg class="x">
+    <image id="coin" href="img/coin.png" />
+    <text id="coins"/>
+    <text id="level" />
     <text id="name" />
-    <image id="settings" href="img/settings.png" />
+    <image id="heart" href="img/heart-s.png" />
+    <text id="health" />
   </svg>
   <svg class="container">
-    <image id="egg" href="img/egg.png" />
+    <image id="egg_1" class="egg" href="img/egg_1.png" />
+    <image id="egg_2" class="egg" href="img/egg_2.png" />
+    <image id="egg_3" class="egg" href="img/egg_3.png" />
+    <image id="egg_4" class="egg" href="img/egg_4.png" />
+    <image id="egg_5" class="egg" href="img/egg_5.png" />
     <image id="elma-baby" href="img/baby.png" />
     <image id="elma-young" href="img/young.png" />
     <image id="elma-adult" href="img/adult.png" />
   </svg>
-  <text id="level" />
-  <text id="myLabel" />
+  <svg id="touchfood" pointer-events="visible">
+  <image id="foodimg" pointer-events="visible" href="img/food.png" />
+    <text id="food">+50</text>
+    <image id="heartfood" href="img/heart-s.png" />
+    <text id="foodcoin">25</text>
+    <image id="coinfood" href="img/coin.png" />
+  </svg>
 </rect>
 </svg>
 
