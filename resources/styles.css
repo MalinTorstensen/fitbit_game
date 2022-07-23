@@ -4,6 +4,38 @@
   height: 100%;
 }
 
+#dead{
+  fill: #DC143C;
+  width: 100%;
+  height: 100%;
+  display:none;
+}
+
+#deadtext{
+  width: 100%;
+  height: 100%;
+  x: 50%;
+  y: 50%;
+  fill: white;
+  font-size: 20;
+  font-family: System-Regular;
+  text-length: 32;
+  text-anchor: middle;
+}
+
+#revive {
+  width: 100%;
+  height: 100%;
+  x: 50%;
+  y: 78%;
+  fill: #800000;
+  font-size: 45;
+  font-family: System-Regular;
+  text-length: 32;
+  text-anchor: middle;
+  /*#800000 */
+}
+
 .container {
   width: 60%;
   height: 60%;
@@ -35,18 +67,74 @@
   display: none;
 }
 
-#egg {
-  width: 100%;
+.egg {
+  width: 80%;
   height: 100%;
-  x: 0;
+  x: 10%;
   y: 0;
 }
 
-#settings {
-  width: 10%;
-  height: 10%;
-  x: 75%;
-  y: 5%;
+#egg_2{
+ display:none; 
+}
+#egg_3{
+  display:none; 
+}
+#egg_4{
+  display:none; 
+}
+#egg_5{
+  display:none; 
+}
+
+#heart{
+  width: 5%;
+  height: 5%;
+  x: 67%;
+  y: 6%;
+}
+
+#health{
+  width: 100%;
+  height: 100%;
+  x: 80%;
+  y: 10%;
+  fill: white;
+  font-size: 14;
+  font-family: System-Regular;
+  text-length: 32;
+  text-anchor: middle;
+}
+
+#coin{
+  width: 5%;
+  height: 5%;
+  x: 13%;
+  y: 6%;
+}
+
+#coins{
+  width: 100%;
+  height: 100%;
+  x: 25%;
+  y: 10%;
+  fill: white;
+  font-size: 14;
+  font-family: System-Regular;
+  text-length: 32;
+  text-anchor: middle;
+}
+
+#value {
+  width: 100%;
+  height: 100%;
+  x: 80%;
+  y: 10%;
+  fill: white;
+  font-size: 14;
+  font-family: System-Regular;
+  text-length: 32;
+  text-anchor: middle;
 }
 
 #level {
@@ -55,16 +143,57 @@
   text-length: 32;
   text-anchor: middle;
   fill: white;
-  x: 50%;
-  y: 75%;
+  x: 21%;
+  y: 17%;
 }
 
-#myLabel {
-  font-size: 60;
+#food {
+  font-size: 16;
+  font-family: System-Regular;
+  text-length: 32;
+  text-anchor: middle;
+  fill: white;
+  x: 30%;
+  y: 92%;
+}
+
+#foodcoin {
+  font-size: 16;
+  font-family: System-Regular;
+  text-length: 32;
+  text-anchor: middle;
+  fill: white;
+  x: 45%;
+  y: 92%;
+}
+
+#foodimg {
+  width: 6%;
+  height: 8%;
+  x: 15%;
+  y: 86%;
+}
+
+#coinfood{
+  width: 5%;
+  height: 5%;
+  x: 48%;
+  y: 88%;
+}
+
+#heartfood{
+  width: 5%;
+  height: 5%;
+  x: 35%;
+  y: 88%;
+}
+
+#name {
+   font-size: 45;
   font-family: System-Regular;
   text-length: 32;
   text-anchor: middle;
   fill: white;
   x: 50%;
-  y: 95%;
+  y: 84%;
 }
