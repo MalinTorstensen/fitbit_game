@@ -13,8 +13,10 @@ display.autoOff = false;
 display.on = true;
 
 var read;
+var readfile;
 try {
 read = fs.readFileSync("/private/data/json.txt", "cbor");
+  readfile = fs.readFileSync("/private/data/steps.txt", "cbor");
   startGame();
 } catch(e) {
 console.log('Oh snap we have an error: ', e);
@@ -23,13 +25,15 @@ console.log("else statement init");
   let lJson = JSON.parse(0);
   let hJson = JSON.parse(100);
   var lastDate = new Date().toJSON();
+ // var steps = JSON.parse((today.adjusted.steps));
   
   
     let json_data = {
      "coins": cJson,
       "health": hJson,
       "level": lJson,
-      "lastDate": lastDate
+      "lastDate": lastDate,
+ //     "steps": steps
       }
 fs.writeFileSync('/private/data/json.txt', json_data, 'cbor'); 
   
@@ -40,6 +44,27 @@ fs.writeFileSync('/private/data/json.txt', json_data, 'cbor');
   health.text = 100;
   coins.text = 0;
   level.text = 0;
+  
+  let steps = today.adjusted.steps;
+  let thisDate = new Date();
+  thisDate.setHours(0, 0, 0, 0);
+  
+  let expJson = JSON.parse(steps);
+  let valJson = JSON.parse(steps);
+  let dateJson = thisDate.toJSON();
+  console.log(expJson);
+  console.log(valJson);
+  console.log(dateJson);
+  
+       
+  let data = {
+      "exp": expJson,
+      "newValue": valJson,
+      "oldDate": dateJson
+      }
+    fs.writeFileSync('/private/data/steps.txt', data, 'cbor');
+   
+  
   startGame();
 }
 
@@ -47,46 +72,55 @@ fs.writeFileSync('/private/data/json.txt', json_data, 'cbor');
 // Update the clock every minute
 function startGame(){
   getValues();
-//  getAddedValues();
-
-document.getElementById("health").addEventListener("change", saveValues());
-document.getElementById("level").addEventListener("change", saveValues());
-document.getElementById("coins").addEventListener("change", saveValues());
 
 // Update elements every tick with the current time
 clock.ontick = (evt) => {
-  // Clock Minutes
- // let mins = util.zeroPad(thisdate.getMinutes());
+  console.log("Clock ticked");
   
-  
-  var steps = (today.adjusted.steps);
   let json_object = fs.readFileSync("/private/data/json.txt", "cbor");
-  let levelNumber = parseInt(json_object.level);
+  let levelNumber = json_object.level;
   let imagechange = document.getElementById("showPet");
   
-  if (steps >= 5000){
-    levelNumber++;
-  }
-   if (steps >= 10000){
-    levelNumber++;
-  }
-  if (steps >= 15000){
-    levelNumber++;
-  }
-  if (steps >= 20000){
-    levelNumber++;
-  }
-  if (steps >= 25000){
-    levelNumber++;
-  }
-  if (steps >= 30000){
-    levelNumber++;
-  }
-  if (steps >= 35000){
-    levelNumber++;
-  }
+  //Update Level
   
-  // Change image when certain levels are reached
+  let json_obj = fs.readFileSync("/private/data/steps.txt", "cbor");
+  let oldDate = json_obj.oldDate;
+  let oldValue = json_obj.newValue;
+  let exp = json_obj.exp;
+  let thisDatenew = new Date();
+  thisDatenew.setHours(0, 0, 0, 0);
+  let thisDate = thisDatenew.toJSON();
+  let newValue = today.adjusted.steps;
+  let increase = 5000;
+  console.log("----------------");
+  console.log("oldValue: " + oldValue);
+  console.log("oldDate: " + oldDate);
+  console.log("exp: " + exp);
+  console.log("thisDate: " + thisDate);
+  console.log("newValue: " + newValue);
+  console.log("increase: " + increase);
+  
+  if (oldDate == thisDate){
+    console.log("Got into func");
+      let amount = newValue - oldValue;
+      exp += amount;
+      console.log("exp: " + exp);
+      UpdateSteps(exp, newValue, thisDate);
+    
+      if (exp > increase){
+      levelNumber++;
+      increase += 5000;
+      let key = "l";
+      UpdateFile(key, levelNumber);
+      console.log(today.adjusted.steps);
+      console.log(levelNumber);
+      }
+      }
+  else {
+        let increase = 5000;
+        exp += newValue;
+        UpdateSteps(exp, newValue, thisDate);
+           }
   
   if (levelNumber === 0){
     imagechange.href = "img/egg_1.png";
@@ -114,16 +148,6 @@ clock.ontick = (evt) => {
     imagechange.href = "img/adult.png";
     }
   
-  // Shows steps and level in console
-  
-  var key = "l";
-  
-  console.log(today.adjusted.steps);
-  console.log(levelNumber);
-  
-  UpdateFile(key, levelNumber);
-  
-  
 }
 // CLICK CLOCK ------- END
 
@@ -135,14 +159,12 @@ const clickrevive = document.getElementById("revive");
   Revive();
     });
 
+  
 
 function AddCoin() {
   let json_object = fs.readFileSync("/private/data/json.txt", "cbor");
   var oldVal = json_object.coins;
-  console.log(oldVal);
-  
   var oldValtwo = parseInt(json_object.coins);
-  console.log(oldValtwo);
   
   
  // console.log("JSON health: " + json_object.health);
@@ -159,8 +181,6 @@ function AddCoin() {
 //  console.log(amount);
   
   oldVal += 10;
-  
-  console.log(oldVal);
   
   var key = "c";
   
@@ -217,25 +237,29 @@ function Healthbar(x) {
   UpdateFile(key, value);
   }
 
+  
+  
 const clickhealth = document.getElementById("showPet");
 
 clickhealth.addEventListener("click", (evt) => {
-  let health = document.getElementById("health");
-  var hValue = parseInt(health.text);
-  var coins = document.getElementById("coins");
-  var cValue = parseInt(coins.text);
+   let json_object = fs.readFileSync("/private/data/json.txt", "cbor");
+   let life = parseInt(json_object.health);
+   let money = parseInt(json_object.coins);
   
-    if (cValue >= 25){
-      hValue += 50;
-      cValue -= 25;
-      coins.text = cValue;
-      health.text = hValue;
-      saveValues();
+    if (money >= 25){
+      life += 50;
+      money -= 25;
+      let key = "h";
+      UpdateFile(key, life);
+      let key = "c";
+      UpdateFile(key, money)
     }else {
       console.log("Not enough coins!!");
     }
 });
 
+  
+  
 function Revive(){
   var dead = document.getElementById("dead");
   var background = document.getElementById("background");
@@ -246,31 +270,8 @@ function Revive(){
   var x = setInterval(Healthbar, 1800000);
 };
 
-function saveValues(){
-   let health = document.getElementById("health");
-   var hValue = parseInt(health.text);
- // console.log("health: " + hValue);
-  let level = document.getElementById("level");
-   var lValue = parseInt(level.text);
- // console.log("level: " + lValue);
-  let coins = document.getElementById("coins");
-   var cValue = parseInt(coins.text);
- // console.log("coins: " + cValue);
   
-  let cJson = JSON.parse(cValue);
-  let lJson = JSON.parse(lValue);
-  let hJson = JSON.parse(hValue);
-  var lastDate = new Date().toJSON();
   
-    let json_data = {
-     "coins": cJson,
-      "health": hJson,
-      "level": lJson,
-      "lastDate": lastDate
-      }
-    fs.writeFileSync('/private/data/json.txt', json_data, 'cbor');
-}
-
 function getValues(){
    let health = document.getElementById("health");
   let level = document.getElementById("level");
@@ -286,21 +287,21 @@ function getValues(){
   level.text = lValue;
 }
   
-/*  function getAddedValues(){
-   let health = document.getElementById("health");
-  let coins = document.getElementById("coins");
-  
-  let json_object = fs.readFileSync("/private/data/json.txt", "cbor");
-  let hValue = json_object.health;
-  let cValue = json_object.coins;
-  
-  health.text = hValue;
-  coins.text = cValue;
-}*/
   
   
-  
-  
+  function UpdateSteps(exp, newValue, thisDate){
+    let expJson = JSON.parse(exp);
+    let valJson = JSON.parse(newValue);
+    let dateJson = thisDate;
+   
+      let json_data = {
+          "exp": expJson,
+          "newValue": valJson,
+          "oldDate": dateJson
+            }
+       fs.writeFileSync('/private/data/steps.txt', json_data, 'cbor');
+       }
+ 
   
   
  function UpdateFile(key, newValue){
@@ -325,7 +326,7 @@ function getValues(){
           "coins": cJson,
           "health": hJson,
           "level": lJson,
-          "lastDate": lDate
+          "lastDate": lDate,
             }
        fs.writeFileSync('/private/data/json.txt', json_data, 'cbor');
        }
@@ -344,7 +345,7 @@ function getValues(){
               "coins": cJson,
               "health": hJson,
               "level": lJson,
-              "lastDate": lDate
+              "lastDate": lDate,
                 }
             fs.writeFileSync('/private/data/json.txt', json_data, 'cbor');
             }
@@ -363,11 +364,10 @@ function getValues(){
               "coins": cJson,
               "health": hJson,
               "level": lJson,
-              "lastDate": lDate
+              "lastDate": lDate,
                 }
             fs.writeFileSync('/private/data/json.txt', json_data, 'cbor');
             }
-   
  } 
   
 }
