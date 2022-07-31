@@ -22,7 +22,7 @@ read = fs.readFileSync("/private/data/json.txt", "cbor");
 console.log('Oh snap we have an error: ', e);
 console.log("else statement init");
  let cJson = JSON.parse(0);
-  let lJson = JSON.parse(0);
+  let lJson = JSON.parse(1);
   let hJson = JSON.parse(100);
   var lastDate = new Date().toJSON();
  // var steps = JSON.parse((today.adjusted.steps));
@@ -43,7 +43,7 @@ fs.writeFileSync('/private/data/json.txt', json_data, 'cbor');
   
   health.text = 100;
   coins.text = 0;
-  level.text = 0;
+  level.text = 1;
   
   let steps = today.adjusted.steps;
   let thisDate = new Date();
@@ -78,7 +78,7 @@ clock.ontick = (evt) => {
   console.log("Clock ticked");
   
   let json_object = fs.readFileSync("/private/data/json.txt", "cbor");
-  let levelNumber = json_object.level;
+  let levelNumber = parseInt(json_object.level);
   let imagechange = document.getElementById("showPet");
   
   //Update Level
@@ -91,14 +91,12 @@ clock.ontick = (evt) => {
   thisDatenew.setHours(0, 0, 0, 0);
   let thisDate = thisDatenew.toJSON();
   let newValue = today.adjusted.steps;
-  let increase = 5000;
   console.log("----------------");
   console.log("oldValue: " + oldValue);
   console.log("oldDate: " + oldDate);
   console.log("exp: " + exp);
   console.log("thisDate: " + thisDate);
   console.log("newValue: " + newValue);
-  console.log("increase: " + increase);
   
   if (oldDate == thisDate){
     console.log("Got into func");
@@ -106,10 +104,11 @@ clock.ontick = (evt) => {
       exp += amount;
       console.log("exp: " + exp);
       UpdateSteps(exp, newValue, thisDate);
+      let increase = levelNumber*5000;
+      console.log(">>>>> " + increase);
     
       if (exp > increase){
       levelNumber++;
-      increase += 5000;
       let key = "l";
       UpdateFile(key, levelNumber);
       console.log(today.adjusted.steps);
@@ -117,34 +116,35 @@ clock.ontick = (evt) => {
       }
       }
   else {
+    console.log(" XXXXXX Got into other func XXXXXXXXX");
         let increase = 5000;
         exp += newValue;
         UpdateSteps(exp, newValue, thisDate);
            }
   
-  if (levelNumber === 0){
+  if (levelNumber === 1){
     imagechange.href = "img/egg_1.png";
     }
     
-    else if (levelNumber == 1){
+    else if (levelNumber == 2){
     imagechange.href = "img/egg_2.png";}
     
-    else if (levelNumber == 2){
+    else if (levelNumber == 3){
     imagechange.href = "img/egg_3.png";}
     
-    else if (levelNumber == 3){
+    else if (levelNumber == 4){
     imagechange.href = "img/egg_4.png";}
     
-    else if (levelNumber == 4){
+    else if (levelNumber == 5){
     imagechange.href = "img/egg_5.png";}
       
-     else if (levelNumber >= 5 && levelNumber <= 9){
+     else if (levelNumber >= 6 && levelNumber <= 10){
     imagechange.href = "img/baby.png";}
     
-    else if (levelNumber >= 10 && levelNumber <= 14){
+    else if (levelNumber >= 11 && levelNumber <= 15){
     imagechange.href = "img/young.png"; }
     
-   else if (levelNumber >= 15){
+   else if (levelNumber >= 16){
     imagechange.href = "img/adult.png";
     }
   
